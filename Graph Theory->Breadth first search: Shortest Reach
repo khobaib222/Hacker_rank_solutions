@@ -1,0 +1,54 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+int main() {
+    int q;
+    cin >> q;
+    for(int a0 = 0; a0 < q; a0++){
+        int n;
+        int m;
+        cin >> n >> m;
+        vector<int> v[n+1];
+        for(int a1 = 0; a1 < m; a1++){
+            int x;
+            int y;
+            cin >> x >> y;
+            v[x].push_back(y);
+            v[y].push_back(x);
+        }
+        int s;
+        cin >> s;
+        int a[n+1];
+        for(int i=1;i<=n;i++)
+        {
+            a[i]=0;
+        }
+        queue<int> q;
+        q.push(s);
+       while(!q.empty())
+       {
+           int x=q.front();
+           for(int i=0;i<v[x].size();i++)
+           {
+               if(a[v[x][i]]==0)
+               {
+                   q.push(v[x][i]);
+                   a[v[x][i]]=a[x]+6;
+               }
+           }
+           q.pop();
+       }
+        for(int i=1;i<=n;i++)
+        {
+            if(i!=s)
+            {
+                if(a[i]!=0)
+                cout<<a[i]<<" ";
+                else cout<<-1<<" ";
+            }
+        }
+        cout<<endl;
+    }
+    return 0;
+}

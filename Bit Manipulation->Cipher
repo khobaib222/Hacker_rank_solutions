@@ -1,0 +1,48 @@
+#include <cmath>
+#include <cstdio>
+#include <vector>
+#include <iostream>
+#include <algorithm>
+using namespace std;
+
+
+int main() {
+    /* Enter your code here. Read input from STDIN. Print output to STDOUT */   
+    int n,k;
+    cin>>n>>k;
+    string s;vector<int> a;
+    cin>>s;
+    int l=0;int z=0;int c=0;
+    for(int i=0;i<n;i++)
+    {
+        if(i>=k)
+           l++ ;
+        long x=0;
+        
+        if(a.size())
+        {
+            if(i<k)
+            { 
+             c=c^a[i-1];
+            x=c;
+            }
+            else
+            {
+                c=c^a[z];
+                c=c^a[i-1];
+                ++z;
+                x=c;
+            }
+        }
+        if(s[i]=='1')
+            x=x^1;
+        if(x)
+            a.push_back(1);
+        else a.push_back(0);
+        
+    }
+    for(int i=0;i<n;i++)
+        cout<<a[i];
+    cout<<endl;
+    return 0;
+}

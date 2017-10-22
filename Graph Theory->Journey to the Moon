@@ -1,0 +1,54 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+  int a[100005];
+vector<int> v[100005];
+
+ int t=0;
+void dfs(int u)
+{
+    
+    
+       a[u]=1;
+        t++;
+    for(int x : v[u])
+    {
+        if(!a[x]){dfs(x);}
+    }
+}
+int main() {
+    int n,p;
+    cin>>n>>p;
+       
+        for(int a1 = 0; a1 < p; a1++){
+            int c1;
+            int c2;
+           
+            cin >> c1 >> c2;
+            v[c1].push_back(c2);
+            v[c2].push_back(c1);
+        }
+         
+        vector<int> r;
+      
+    for(int i=0;i<n;i++)
+        a[i]=0;
+       for(int i=0;i<n;i++)
+        {
+            t=0;
+            if(!a[i]){
+                dfs(i);
+                if(t)r.push_back(t);}
+         
+           
+        }
+    long long result=0;
+    long long sum=0;
+    for(int i=0;i<r.size();i++)
+    {
+        result+=sum*r[i];
+        sum+=r[i];
+    }
+    cout<<result<<endl;
+    return 0;
+}

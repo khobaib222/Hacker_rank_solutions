@@ -1,0 +1,49 @@
+#include<bits/stdc++.h>
+using namespace std;
+long long key[3001];
+bool compkey(pair<long long ,int> &a, pair<long long ,int> &b)
+{
+    return key[a.second]<key[b.second];
+}
+int main() {
+    int n,m,s;
+    cin>>n>>m;
+    long long mincst=0;
+    vector<pair<long long,int> > v[n+1];
+    bool visited[n+1];
+    for(int i=1;i<n+1;i++)
+        visited[i]=false;
+    for(int i=1;i<n+1;i++)
+        key[i]=INT_MAX;
+    while(m--)
+    {
+        int x,y,w;
+        cin>>x>>y>>w;
+        v[x].push_back({w,y});
+        v[y].push_back({w,x});
+    }
+    cin>>s;
+    key[s]=0;
+    vector<pair<long long,int> > q;
+    q.push_back({0,s});
+    visited[s]=true;
+    while(q.size()!=0)
+    {
+          for(int i=0;i<v[q[0].second].size();i++)
+                 {
+                    if(v[q[0].second][i].first<key[v[q[0].second][i].second])
+                        key[v[q[0].second][i].second]=v[q[0].second][i].first;
+                    if(!visited[v[q[0].second][i].second])
+                    {
+                        q.push_back({v[q[0].second][i]});
+                        visited[v[q[0].second][i].second]=true;
+                     
+                    }
+                 }
+                mincst+=key[q[0].second];
+                q.erase(q.begin());
+                sort(q.begin(),q.end(),compkey);
+    }
+    cout<<mincst<<endl;
+    return 0;
+}
